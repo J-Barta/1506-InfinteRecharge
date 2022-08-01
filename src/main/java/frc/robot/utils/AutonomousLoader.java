@@ -1,9 +1,10 @@
 package frc.robot.utils;
 
-import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.Auton.NSidedRoute;
 import frc.robot.commands.Auton.Straight;
+import frc.robot.commands.Auton.StraightReturn;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,11 @@ public class AutonomousLoader {
     private SendableChooser chooser;
 
     public AutonomousLoader(AllRobotSubsystems subsystems) {
-        autoRoutes.put(Route.Straight, new Straight());
+        autoRoutes.put(Route.Straight, new Straight(subsystems.drivetrain));
+        autoRoutes.put(Route.StraightReturn, new StraightReturn(subsystems.drivetrain));
+        autoRoutes.put(Route.Square, new NSidedRoute(subsystems.drivetrain, 4));
+        autoRoutes.put(Route.Pentagon, new NSidedRoute(subsystems.drivetrain, 5));
+        autoRoutes.put(Route.Octagon, new NSidedRoute(subsystems.drivetrain, 8));
 
         this.chooser = composeSendableChooser();
     }
@@ -37,6 +42,10 @@ public class AutonomousLoader {
     }
 
     public enum Route {
-        Straight
+        Straight,
+        StraightReturn,
+        Square,
+        Pentagon,
+        Octagon
     }
 }

@@ -84,8 +84,8 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 public class RobotContainer {
 
   public static final Joystick driver = new Joystick(0);
-  private final Joystick operator = new Joystick(1);
-  private final Joystick testinator = new Joystick(2);
+  // private final Joystick operator = new Joystick(1);
+  // private final Joystick testinator = new Joystick(2);
 
   // The robot's subsystems and commands are defined here...
   protected static final Drivetrain drivetrain = new Drivetrain();
@@ -94,7 +94,7 @@ public class RobotContainer {
   protected static final Intake intake = new Intake();
   protected static final HorizIndexer horizIndexer = new HorizIndexer();
   protected static final VertIndexer vertIndexer = new VertIndexer();
-  protected static final Climber climber = new Climber();
+  // protected static final Climber climber = new Climber();
 
   private SendableChooser<Constants.Auto.Position> positionChooser = new SendableChooser<>();
   private SendableChooser<Constants.Auto.Goal> goalChooser = new SendableChooser<>();
@@ -105,7 +105,7 @@ public class RobotContainer {
   private static final Command d_driveStraight = new DriveStraight(drivetrain);
 
   private Trajectory Six_Ball_1, Six_Ball_2;
-  private AutonomousLoader autoLoader = new AutonomousLoader(new AllRobotSubsystems(climber, drivetrain, horizIndexer, intake, shifter, shooter, vertIndexer));
+  private AutonomousLoader autoLoader = new AutonomousLoader(new AllRobotSubsystems(drivetrain, horizIndexer, intake, shifter, shooter, vertIndexer));
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -124,7 +124,7 @@ public class RobotContainer {
     createTrajectories();
 
     //Send sendable chooser to smart dashboard
-    SmartDashboard.putData(autoLoader.getSendableChooser());
+    SmartDashboard.putData("Choose Auto Route",  autoLoader.getSendableChooser());
   }
 
   private void configureButtonBindings() {
@@ -144,33 +144,33 @@ public class RobotContainer {
 
     //? Operator Controls
     // new JoystickButton(operator, Constants.Playstation.LeftBumper.getID()).whileHeld(new ExtendAndIntake(intake));
-    new JoystickButton(operator, Constants.Playstation.LeftBumper.getID()).whileHeld(m_extendAndIntake);
+    // new JoystickButton(operator, Constants.Playstation.LeftBumper.getID()).whileHeld(m_extendAndIntake);
     // new JoystickButton(operator, Constants.Playstation.LeftBumper.getID())
     //   .whileActiveContinuous(m_extendAndOutake, true)
     //   .and(new POVButton(operator, Constants.Playstation.NorthPOVButton.getID()))
     //   .cancelWhenActive(m_extendAndIntake);
-    new JoystickButton(operator, Constants.Playstation.RightBumper.getID()).whileHeld(new IndexAndShoot(intake, horizIndexer, vertIndexer, shooter));
+    // new JoystickButton(operator, Constants.Playstation.RightBumper.getID()).whileHeld(new IndexAndShoot(intake, horizIndexer, vertIndexer, shooter));
     // new JoystickButton(operator, Constants.Playstation.XButton.getID()).whileHeld(new VertIndexRev(vertIndexer));
     // new JoystickButton(operator, Constants.Playstation.CircleButton.getID()).whileHeld(new HorizIndexRev(horizIndexer));
-    new JoystickButton(operator, Constants.Playstation.XButton.getID()).whileHeld(new Unjam(horizIndexer, vertIndexer, intake));
-    new JoystickButton(operator, Constants.Playstation.CircleButton.getID()).whileHeld(new ExtendAndOutake(intake));
-    new JoystickButton(operator, Constants.Playstation.TriangleButton.getID()).whileHeld(new HorizIndexRevCycle(horizIndexer));
-    new JoystickButton(operator, Constants.Playstation.BigButton.getID()).whenPressed(new Extend(climber));
-    new JoystickButton(operator, Constants.Playstation.MiddleButton.getID()).whenPressed(new Retract(climber));
-    new POVButton(operator, Constants.Playstation.NorthPOVButton.getID()).whileHeld(new SetClimbingHeight(climber));
-    new POVButton(operator, Constants.Playstation.SouthPOVButton.getID()).whileHeld(new SetInitialHeight(climber));
+    // new JoystickButton(operator, Constants.Playstation.XButton.getID()).whileHeld(new Unjam(horizIndexer, vertIndexer, intake));
+    // new JoystickButton(operator, Constants.Playstation.CircleButton.getID()).whileHeld(new ExtendAndOutake(intake));
+    // new JoystickButton(operator, Constants.Playstation.TriangleButton.getID()).whileHeld(new HorizIndexRevCycle(horizIndexer));
+    // new JoystickButton(operator, Constants.Playstation.BigButton.getID()).whenPressed(new Extend(climber));
+    // new JoystickButton(operator, Constants.Playstation.MiddleButton.getID()).whenPressed(new Retract(climber));
+    // new POVButton(operator, Constants.Playstation.NorthPOVButton.getID()).whileHeld(new SetClimbingHeight(climber));
+    // new POVButton(operator, Constants.Playstation.SouthPOVButton.getID()).whileHeld(new SetInitialHeight(climber));
 
     //? Test Controller Controls
-    new JoystickButton(testinator, Constants.Playstation.BigButton.getID()).whileHeld(new TestMechanisms(intake, horizIndexer, vertIndexer, shooter));
+    // new JoystickButton(testinator, Constants.Playstation.BigButton.getID()).whileHeld(new TestMechanisms(intake, horizIndexer, vertIndexer, shooter));
     // new POVButton(testinator, Constants.Playstation.NorthPOVButton.getID()).whenPressed(new TurnToAngle2(drivetrain, shifter, 45));
     // new POVButton(testinator, Constants.Playstation.EastPOVButton.getID()).whenPressed(new TurnToAngle2(drivetrain, shifter, 90));
     // new POVButton(testinator, Constants.Playstation.WestPOVButton.getID()).whenPressed(new TurnToAngle2(drivetrain, shifter, -180));
     // new POVButton(testinator, Constants.Playstation.SouthPOVButton.getID()).whenPressed(new TurnToAngle2(drivetrain, shifter, -90));
 
-    new POVButton(testinator, Constants.Playstation.NorthPOVButton.getID()).whenPressed(new FastTurnToAngleProfiled(drivetrain, 180));
-    new POVButton(testinator, Constants.Playstation.EastPOVButton.getID()).whenPressed(new FastTurnToAngleProfiled(drivetrain, 90));
-    new POVButton(testinator, Constants.Playstation.WestPOVButton.getID()).whenPressed(new FastTurnToAngleProfiled(drivetrain, -180));
-    new POVButton(testinator, Constants.Playstation.SouthPOVButton.getID()).whenPressed(new FastTurnToAngleProfiled(drivetrain, -90));
+    // new POVButton(testinator, Constants.Playstation.NorthPOVButton.getID()).whenPressed(new FastTurnToAngleProfiled(drivetrain, 180));
+    // new POVButton(testinator, Constants.Playstation.EastPOVButton.getID()).whenPressed(new FastTurnToAngleProfiled(drivetrain, 90));
+    // new POVButton(testinator, Constants.Playstation.WestPOVButton.getID()).whenPressed(new FastTurnToAngleProfiled(drivetrain, -180));
+    // new POVButton(testinator, Constants.Playstation.SouthPOVButton.getID()).whenPressed(new FastTurnToAngleProfiled(drivetrain, -90));
   }
 
 
@@ -225,13 +225,13 @@ public class RobotContainer {
       new StopVertIndexer(vertIndexer)
     );
 
-    climber.setDefaultCommand(
-      new Control(
-        climber, 
-        () -> operator.getRawAxis(Constants.Playstation.LeftYAxis.getID()), 
-        () -> operator.getRawAxis(Constants.Playstation.RightYAxis.getID())
-      )
-    );
+    // climber.setDefaultCommand(
+    //   new Control(
+    //     climber, 
+    //     () -> operator.getRawAxis(Constants.Playstation.LeftYAxis.getID()), 
+    //     () -> operator.getRawAxis(Constants.Playstation.RightYAxis.getID())
+    //   )
+    // );
 
   }
 

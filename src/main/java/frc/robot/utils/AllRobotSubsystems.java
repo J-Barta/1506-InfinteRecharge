@@ -3,7 +3,6 @@ package frc.robot.utils;
 import frc.robot.subsystems.*;
 
 public class AllRobotSubsystems {
-    Climber climber;
     Drivetrain drivetrain;
     HorizIndexer horizIndexer;
     Intake intake;
@@ -11,8 +10,7 @@ public class AllRobotSubsystems {
     Shooter shooter;
     VertIndexer vertIndexer;
 
-    public AllRobotSubsystems(Climber climber, Drivetrain drivetrain, HorizIndexer horizIndexer, Intake intake, Shifter shifter, Shooter shooter, VertIndexer vertIndexer) {
-        this.climber = climber;
+    public AllRobotSubsystems(Drivetrain drivetrain, HorizIndexer horizIndexer, Intake intake, Shifter shifter, Shooter shooter, VertIndexer vertIndexer) {
         this.drivetrain = drivetrain;
         this.horizIndexer = horizIndexer;
         this.intake = intake;

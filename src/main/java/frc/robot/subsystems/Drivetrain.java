@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
@@ -72,6 +73,10 @@ public class Drivetrain extends SubsystemBase {
     private DifferentialDriveOdometry odometry;
     private RamseteController ramseteController;
     private SimpleMotorFeedforward feedforward;
+
+//    private PIDController pid = new PIDController(0, 0, 0);
+//    private SimpleMotorFeedforward ff = new SimpleMotorFeedforward(0, 0);
+    private final WPI_TalonFX motor= new WPI_TalonFX(0);
 
     public Drivetrain() {
         this.leftDrive.configFactoryDefault();
@@ -471,6 +476,11 @@ public class Drivetrain extends SubsystemBase {
 
     @Override
     public void periodic() {
+//        pid.setSetpoint(500);
+//        pid.reset();
+//        double ffOutput = ff.calculate(motor.getSelectedSensorVelocity() * 10);
+//        double pidOutput = pid.calculate(motor.getSelectedSensorVelocity() * 10);
+//        motor.setVoltage(ffOutput + pidOutput);
         
         odometry.update(
             Rotation2d.fromDegrees(getHeading()), 

@@ -18,7 +18,7 @@ public class DriveDistance extends TrapezoidProfileCommand {
             ),
             setpointState -> drivetrain.setDriveStates(setpointState, setpointState),
             drivetrain
-        );
+        ); 
         drivetrain.resetEncoders();
     }
 
