@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.Auto.Goal;
 import frc.robot.Constants.Auto.Position;
 import frc.robot.commands.Auton.LeftAuton;
@@ -54,6 +55,8 @@ import frc.robot.subsystems.Shifter;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VertIndexer;
 import frc.robot.subsystems.Drivetrain.Piplelines;
+import frc.robot.utils.AllRobotSubsystems;
+import frc.robot.utils.AutonomousLoader;
 import frc.robot.utils.TrajectoryLoader;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.math.controller.PIDController;
@@ -102,6 +105,7 @@ public class RobotContainer {
   private static final Command d_driveStraight = new DriveStraight(drivetrain);
 
   private Trajectory Six_Ball_1, Six_Ball_2;
+  private AutonomousLoader autoLoader = new AutonomousLoader(new AllRobotSubsystems(climber, drivetrain, horizIndexer, intake, shifter, shooter, vertIndexer));
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -118,6 +122,9 @@ public class RobotContainer {
 
     //? Create Trajectories
     createTrajectories();
+
+    //Send sendable chooser to smart dashboard
+    SmartDashboard.putData(autoLoader.getSendableChooser());
   }
 
   private void configureButtonBindings() {
@@ -250,10 +257,13 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
+
+    return autoLoader.getCurrentSelection();
+
     //? Reset Sensors
     // drivetrain.resetEncoders();
     // drivetrain.resetGyro();
-    String name = "work";
+//    String name = "work";
     // drivetrain.resetOdometry(TrajectoryLoader.loadTrajectoryFromFile(name).getInitialPose());
     // System.out.println(TrajectoryLoader.loadTrajectoryFromFile(name).getInitialPose());
 
@@ -265,7 +275,7 @@ public class RobotContainer {
     // System.out.println(TrajectoryLoader.getInitialPoseReversed(trajectory));
 
     // return standardRamseteRevCommand(name);
-    return test6Ball2();
+//    return test6Ball2();
 
     // return new ParallelCommandGroup(
     //   new DefaultSetToHighGear(shifter),
