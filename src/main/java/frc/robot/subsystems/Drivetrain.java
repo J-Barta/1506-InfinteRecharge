@@ -53,7 +53,8 @@ public class Drivetrain extends SubsystemBase {
 
     private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
-    private PIDController leftDrivePID, rightDrivePID;
+    private PIDController leftDrivePID = new PIDController(0, 0, 0);
+    private PIDController rightDrivePID = new PIDController(0, 0, 0);
 
     public enum Piplelines {
         NearTargeting,
@@ -368,6 +369,8 @@ public class Drivetrain extends SubsystemBase {
     //? Trajectory
 
     public void setDriveStates(TrapezoidProfile.State left, TrapezoidProfile.State right) {
+        System.out.println(left.position);
+        System.out.println(right.position);
         leftDrivePID.setSetpoint(left.position);
         rightDrivePID.setSetpoint(right.position);
         this.leftDriveMaster.set(ControlMode.Position, leftDrivePID.getSetpoint());

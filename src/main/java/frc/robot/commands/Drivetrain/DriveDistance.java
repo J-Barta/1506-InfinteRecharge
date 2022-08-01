@@ -22,4 +22,10 @@ public class DriveDistance extends TrapezoidProfileCommand {
         drivetrain.resetEncoders();
     }
 
+    @Override
+    public void execute() {
+        super.execute();
+        System.out.println("spam");
+    }
+
 }
