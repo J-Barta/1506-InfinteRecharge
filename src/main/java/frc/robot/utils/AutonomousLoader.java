@@ -7,6 +7,7 @@ import frc.robot.commands.Auton.AllianceWallScoreHigh;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.Auton.DriveAndCollect;
 import frc.robot.commands.Auton.HangarAndBack;
+import frc.robot.commands.Auton.HangarScore;
 import frc.robot.commands.Auton.HangarToHangar;
 import frc.robot.commands.Auton.NSidedRoute;
 import frc.robot.commands.Auton.Straight;
@@ -34,6 +35,7 @@ public class AutonomousLoader {
         autoRoutes.put(Route.WallToLow, new WallToLow(subsystems.drivetrain, subsystems.shooter, subsystems.vertIndexer, subsystems.horizIndexer));
         autoRoutes.put(Route.AllianceWallScoreHigh, new AllianceWallScoreHigh(subsystems.drivetrain, subsystems.shooter, subsystems.vertIndexer, subsystems.horizIndexer));
         autoRoutes.put(Route.TwoBallRoute, new TwoBallAuto(subsystems.drivetrain, subsystems.intake, subsystems.horizIndexer, subsystems.vertIndexer, subsystems.shooter));
+        autoRoutes.put(Route.HangarScore, new HangarScore(subsystems.drivetrain, subsystems.shooter, subsystems.vertIndexer, subsystems.horizIndexer, subsystems.intake));
 
         this.chooser = composeSendableChooser();
     }
@@ -66,6 +68,8 @@ public class AutonomousLoader {
         DriveAndCollect,
         WallToLow,
         AllianceWallScoreHigh,
-        TwoBallRoute
+        TwoBallRoute,
+        HangarScore
+
     }
 }
