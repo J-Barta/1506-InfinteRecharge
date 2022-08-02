@@ -9,6 +9,7 @@ import frc.robot.commands.Auton.HangarToHangar;
 import frc.robot.commands.Auton.NSidedRoute;
 import frc.robot.commands.Auton.Straight;
 import frc.robot.commands.Auton.StraightReturn;
+import frc.robot.commands.Auton.WallToLow;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,8 @@ public class AutonomousLoader {
         autoRoutes.put(Route.HangarToHangar, new HangarToHangar(subsystems.drivetrain));
         autoRoutes.put(Route.HangarAndBack, new HangarAndBack(subsystems.drivetrain));
         autoRoutes.put(Route.DriveAndCollect, new DriveAndCollect(subsystems.drivetrain, subsystems.intake));
+        autoRoutes.put(Route.WallToLow, new WallToLow(subsystems.drivetrain, subsystems.shooter, subsystems.vertIndexer, subsystems.horizIndexer));
+
 
         this.chooser = composeSendableChooser();
     }
@@ -56,6 +59,7 @@ public class AutonomousLoader {
         Octagon,
         HangarToHangar,
         HangarAndBack,
-        DriveAndCollect
+        DriveAndCollect,
+        WallToLow
     }
 }
