@@ -17,4 +17,9 @@ public class StopVertIndexer extends CommandBase {
         m_vertIndexer.stop();
     }
 
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
+
 }

@@ -16,4 +16,9 @@ public class VertIndex extends CommandBase {
     public void execute() {
         m_vertIndexer.up();
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

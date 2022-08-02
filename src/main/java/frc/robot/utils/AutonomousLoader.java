@@ -3,12 +3,14 @@ package frc.robot.utils;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.Auton.DriveAndCollect;
 import frc.robot.commands.Auton.HangarAndBack;
 import frc.robot.commands.Auton.HangarToHangar;
 import frc.robot.commands.Auton.NSidedRoute;
 import frc.robot.commands.Auton.Straight;
 import frc.robot.commands.Auton.StraightReturn;
+import frc.robot.commands.Auton.TwoBallAuto;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +29,7 @@ public class AutonomousLoader {
         autoRoutes.put(Route.HangarToHangar, new HangarToHangar(subsystems.drivetrain));
         autoRoutes.put(Route.HangarAndBack, new HangarAndBack(subsystems.drivetrain));
         autoRoutes.put(Route.DriveAndCollect, new DriveAndCollect(subsystems.drivetrain, subsystems.intake));
+        autoRoutes.put(Route.TwoBallRoute, new TwoBallAuto(subsystems.drivetrain, subsystems.intake, subsystems.horizIndexer, subsystems.vertIndexer, subsystems.shooter));
 
         this.chooser = composeSendableChooser();
     }
@@ -56,6 +59,7 @@ public class AutonomousLoader {
         Octagon,
         HangarToHangar,
         HangarAndBack,
-        DriveAndCollect
+        DriveAndCollect,
+        TwoBallRoute
     }
 }

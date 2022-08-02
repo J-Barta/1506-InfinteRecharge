@@ -17,4 +17,9 @@ public class StopIntakeIntake extends CommandBase {
         m_intake.stopIntake();
     }
 
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
+
 }

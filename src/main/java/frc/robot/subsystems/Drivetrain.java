@@ -128,6 +128,8 @@ public class Drivetrain extends SubsystemBase {
 
         SmartDashboard.putData("field", field);
 
+        navx.calibrate();
+
         // Shuffleboard.getTab("Drivetrain").addNumber("Target-Distance", this::getTargetDistance);
         // Shuffleboard.getTab("Drivetrain").addNumber("Distance", this::getDistance);
         // Shuffleboard.getTab("Drivetrain").addNumber("Heading", this::getHeading);

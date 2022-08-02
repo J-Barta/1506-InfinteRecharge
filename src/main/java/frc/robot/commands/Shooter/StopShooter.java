@@ -17,4 +17,9 @@ public class StopShooter extends CommandBase {
         m_shooter.stopShooter();
     }
 
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
+
 }

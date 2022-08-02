@@ -37,5 +37,9 @@ public class IntakeIntake extends CommandBase {
     // public void execute() {
         
     // }
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 
 }
