@@ -3,6 +3,7 @@ package frc.robot.commands.Auton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Drivetrain.TurnToAngleProfiled;
+import frc.robot.commands.Drivetrain.TurnToAngleStupid;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shifter;
 
@@ -19,7 +20,7 @@ public class NSidedRoute extends SequentialCommandGroup {
         
         for(int i = 0; i<n; i++) {
             commands.add(dt.getRamseteCommand("Straight-1m", true));
-            commands.add(new TurnToAngleProfiled(dt, turnAmount));
+            commands.add(new TurnToAngleStupid(dt, turnAmount));
         }
 
         Command[] array = new Command[commands.size()];
