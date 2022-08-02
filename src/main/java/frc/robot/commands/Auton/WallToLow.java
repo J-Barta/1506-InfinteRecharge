@@ -27,10 +27,10 @@ public class WallToLow extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      dt.getRamseteCommand("Wall-To-Low", true),
+      new Shoot(shooter, 7000.0),
+      dt.getRamseteCommand("wall-to-low", true),
       new VertIndex(vertIndexer),
       new HorizIndex(horizIndexer),
-      new Shoot(shooter, 2000.0),
       new WaitCommand(2),
       new StopHorizIndexer(horizIndexer),
       new StopVertIndexer(vertIndexer),

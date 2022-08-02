@@ -30,7 +30,7 @@ public class HangarScore extends SequentialCommandGroup {
     addCommands(
       new ExtendAndIntake(intake),
       dt.getRamseteCommand("HangarScore", true), 
-      new Shoot(shooter, 2000.0),
+      new Shoot(shooter, 6000.0),
       new VertIndex(vertIndexer),
       new HorizIndex(horizIndexer),
       new WaitCommand(2),

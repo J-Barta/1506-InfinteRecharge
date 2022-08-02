@@ -17,4 +17,9 @@ public class StopHorizIndexer extends CommandBase {
         m_horizIndexer.stop();
     }
 
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
+
 }

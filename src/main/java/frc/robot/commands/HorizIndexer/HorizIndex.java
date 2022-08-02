@@ -16,4 +16,9 @@ public class HorizIndex extends CommandBase {
     public void execute() {
         m_horizIndexer.cycle();
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

@@ -25,7 +25,7 @@ public class FastTurnToAngleProfiled extends ProfiledPIDCommand {
             drivetrain
         );
 
-        getController().enableContinuousInput(-180.0, 180.0);
+        getController().enableContinuousInput(0, 360);
         getController().setTolerance(Constants.Drivetrain.TURN_TOLERANCE);
 
         m_drivetrain = drivetrain;

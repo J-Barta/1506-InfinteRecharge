@@ -5,6 +5,7 @@
 package frc.robot.commands.Auton;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.HorizIndexer.HorizIndex;
@@ -29,11 +30,12 @@ public class AllianceWallScoreHigh extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      dt.getRamseteCommand("AllianceWallScoreHigh", true), 
-      new Shoot(shooter, 2000.0),
+      new Shoot(shooter, 10000.0),
+      dt.getRamseteCommand("AllianceWallScoreHigh", true).andThen(new InstantCommand(() -> dt.arcadeDrive(0, 0))), 
+      new WaitCommand(3),
       new VertIndex(vertIndexer),
       new HorizIndex(horizIndexer),
-      new WaitCommand(2),
+      new WaitCommand(5),
       new StopHorizIndexer(horizIndexer),
       new StopVertIndexer(vertIndexer),
       new StopShooter(shooter)

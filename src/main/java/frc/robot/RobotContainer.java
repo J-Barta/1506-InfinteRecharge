@@ -128,17 +128,17 @@ public class RobotContainer {
   public RobotContainer() {
 
     paths = loadPaths(List.of(
-      "Hangar-and-back", 
-      "Hangar-to-hangar", 
-      "Straight-1m", 
-      "Straight-Half-Meter", 
-      "Straight-3m", 
-      "AllianceWallScoreHigh", 
-      "WallToLow", 
-      "Hub-to-ball-pickup", 
-      "Ball-pickup-to-hub", 
-      "HangarScore"
-      ));
+    "Hangar-and-back", 
+    "Hangar-to-hangar", 
+    "Straight-1m", 
+    "Straight-Half-Meter", 
+    "Straight-3m", 
+    "AllianceWallScoreHigh", 
+    "wall-to-low", 
+    "to-ball-2-ball", 
+    "HangarScore"
+    ));
+    paths.putAll(loadPathsReversed(List.of("to-shoot-2-ball", "back-to-shoot")));
 
     autoLoader = new AutonomousLoader(
         new AllRobotSubsystems(drivetrain, horizIndexer, intake, shifter, shooter, vertIndexer), paths);
@@ -162,9 +162,9 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // ? Driver Controls
-    // new JoystickButton(driver,
-    // Constants.Playstation.TriangleButton.getID()).whileHeld(new Shoot(shooter,
-    // 22000.0));
+    new JoystickButton(driver,
+    Constants.Playstation.SquareButton.getID()).whenPressed(new Shoot(shooter,
+    22000.0));
     new JoystickButton(driver, Constants.Playstation.TriangleButton.getID())
         .whenPressed(new Align(drivetrain).withTimeout(3.0));
     new JoystickButton(driver, Constants.Playstation.XButton.getID()).whileHeld(new HorizIndex(horizIndexer));
@@ -285,11 +285,11 @@ public class RobotContainer {
     // )
     // );
 
-    shifter.setDefaultCommand(
-        new DefaultSetToHighGear(shifter));
+    // shifter.setDefaultCommand(
+    //     new DefaultSetToHighGear(shifter));
 
-    shooter.setDefaultCommand(
-        new StopShooter(shooter));
+    // shooter.setDefaultCommand(
+    //     new StopShooter(shooter));
 
     // shooter.setDefaultCommand(
     // new ShootManual(
@@ -298,14 +298,14 @@ public class RobotContainer {
     // )
     // );
 
-    intake.setDefaultCommand(
-        new IntakeDefault(intake));
+    // intake.setDefaultCommand(
+    //     new IntakeDefault(intake));
 
-    horizIndexer.setDefaultCommand(
-        new StopHorizIndexer(horizIndexer));
+    // horizIndexer.setDefaultCommand(
+    //     new StopHorizIndexer(horizIndexer));
 
-    vertIndexer.setDefaultCommand(
-        new StopVertIndexer(vertIndexer));
+    // vertIndexer.setDefaultCommand(
+    //     new StopVertIndexer(vertIndexer));
 
     // climber.setDefaultCommand(
     // new Control(
@@ -720,6 +720,17 @@ public class RobotContainer {
     for (String n : names) {
       trajectories.put(n, PathPlanner.loadPath(n, Constants.Drivetrain.MAX_VELOCITY,
           Constants.Drivetrain.MAX_ACCELERATION));
+    }
+
+    return trajectories;
+  }
+
+  public Map<String, Trajectory> loadPathsReversed(List<String> names) {
+    Map<String, Trajectory> trajectories = new HashMap<>();
+
+    for (String n : names) {
+      trajectories.put(n, PathPlanner.loadPath(n, Constants.Drivetrain.MAX_VELOCITY,
+          Constants.Drivetrain.MAX_ACCELERATION, true));
     }
 
     return trajectories;

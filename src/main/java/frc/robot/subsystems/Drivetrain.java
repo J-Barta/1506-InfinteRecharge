@@ -88,6 +88,7 @@ public class Drivetrain extends SubsystemBase {
     private final WPI_TalonFX motor= new WPI_TalonFX(0);
 
     private Field2d field = new Field2d();
+    private double cumulativeHeading = 0;
 
     public Drivetrain() {
         this.leftDrive.configFactoryDefault();
@@ -369,6 +370,7 @@ public class Drivetrain extends SubsystemBase {
 
     //? Gyro
     public void resetGyro() {
+        cumulativeHeading += getHeading();
     	navx.zeroYaw();
     }
 
@@ -393,6 +395,10 @@ public class Drivetrain extends SubsystemBase {
 
     public Double getHeading() {
         return Math.IEEEremainder(-navx.getAngle(), 360);
+    }
+
+    public Double getCumulativeHeading() {
+        return getHeading() + cumulativeHeading;
     }
 
     public Pose2d getPose() {
@@ -574,5 +580,6 @@ public class Drivetrain extends SubsystemBase {
         builder.addDoubleProperty("left power", () -> leftDriveMaster.getMotorOutputPercent(), null);
         builder.addDoubleProperty("right power", () -> rightDriveMaster.getMotorOutputPercent(), null);
         builder.addDoubleProperty("gyro angle", () -> getHeading(), null);
+        builder.addDoubleProperty("cumulative gyro angle", () -> getCumulativeHeading(), null);
     }
 }

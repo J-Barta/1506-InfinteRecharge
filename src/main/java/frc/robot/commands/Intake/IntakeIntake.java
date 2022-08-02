@@ -14,7 +14,7 @@ public class IntakeIntake extends CommandBase {
 
     public IntakeIntake(Intake intake) {
         m_intake = intake;
-        m_power = 0.5 ; // 0.65
+        m_power = 0.75 ; // 0.65
     }
 
     public IntakeIntake(Intake intake, Double pwr) {

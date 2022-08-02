@@ -10,6 +10,8 @@ import frc.robot.commands.Auton.HangarAndBack;
 import frc.robot.commands.Auton.HangarScore;
 import frc.robot.commands.Auton.HangarToHangar;
 import frc.robot.commands.Auton.NSidedRoute;
+import frc.robot.commands.Auton.ScoreHighRoute;
+import frc.robot.commands.Auton.ScoreLowRoute;
 import frc.robot.commands.Auton.Straight;
 import frc.robot.commands.Auton.StraightReturn;
 import frc.robot.commands.Auton.WallToLow;
@@ -36,6 +38,8 @@ public class AutonomousLoader {
         autoRoutes.put(Route.AllianceWallScoreHigh, new AllianceWallScoreHigh(subsystems.drivetrain, subsystems.shooter, subsystems.vertIndexer, subsystems.horizIndexer));
         autoRoutes.put(Route.TwoBallRoute, new TwoBallAuto(subsystems.drivetrain, subsystems.intake, subsystems.horizIndexer, subsystems.vertIndexer, subsystems.shooter));
         autoRoutes.put(Route.HangarScore, new HangarScore(subsystems.drivetrain, subsystems.shooter, subsystems.vertIndexer, subsystems.horizIndexer, subsystems.intake));
+        autoRoutes.put(Route.ScoreLow, new ScoreLowRoute(subsystems.shooter, subsystems.vertIndexer, subsystems.horizIndexer));
+        autoRoutes.put(Route.ScoreHigh, new ScoreHighRoute(subsystems.shooter, subsystems.vertIndexer, subsystems.horizIndexer));
 
         this.chooser = composeSendableChooser();
     }
@@ -69,7 +73,9 @@ public class AutonomousLoader {
         WallToLow,
         AllianceWallScoreHigh,
         TwoBallRoute,
-        HangarScore
+        HangarScore,
+        ScoreLow,
+        ScoreHigh
 
     }
 }
