@@ -3,10 +3,10 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
@@ -18,16 +18,25 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.MathUtil;
+
+import java.util.Map;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
+import com.ctre.phoenix.motorcontrol.TalonFXSimCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -79,6 +88,8 @@ public class Drivetrain extends SubsystemBase {
 //    private SimpleMotorFeedforward ff = new SimpleMotorFeedforward(0, 0);
     private final WPI_TalonFX motor= new WPI_TalonFX(0);
 
+    private Field2d field = new Field2d();
+
     public Drivetrain() {
         this.leftDrive.configFactoryDefault();
         this.leftDriveMaster.configFactoryDefault();
@@ -115,6 +126,8 @@ public class Drivetrain extends SubsystemBase {
         this.ramseteController = new RamseteController(2.0, 0.7);
 
         this.y = 0.0;
+
+        SmartDashboard.putData("field", field);
 
         // Shuffleboard.getTab("Drivetrain").addNumber("Target-Distance", this::getTargetDistance);
         // Shuffleboard.getTab("Drivetrain").addNumber("Distance", this::getDistance);
@@ -443,6 +456,32 @@ public class Drivetrain extends SubsystemBase {
         resetGyro();
     }
 
+    public Command getRamseteCommand(String trajName, boolean resetPose) {
+        Map<String, Trajectory> paths = RobotContainer.paths;
+        Trajectory traj = RobotContainer.paths.get(trajName);
+        SequentialCommandGroup commands = new SequentialCommandGroup();
+        if(resetPose) commands.addCommands(new InstantCommand(() -> resetOdometry(traj.getInitialPose())));
+        commands.addCommands(new InstantCommand(() -> field.getObject("traj").setTrajectory(traj)));
+
+        commands.addCommands(new RamseteCommand(
+            traj,
+            this::getPose,
+            new RamseteController(),
+            new SimpleMotorFeedforward(
+                Constants.Drivetrain.kS,
+                Constants.Drivetrain.kV,
+                Constants.Drivetrain.kA
+            ),
+            Constants.Drivetrain.kDriveKinematics,
+            this::getWheelSpeeds,
+            new PIDController(1.5, 0.01, 0.05),
+            new PIDController(1.1, 0.01, 0.15),
+            this::tankDriveVolts,
+            this
+        ));
+        return commands;
+    }
+
     public void dashboard() {
         ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
         tab.add(this);
@@ -524,5 +563,14 @@ public class Drivetrain extends SubsystemBase {
         // rightDriveTempWidget.setNumber(this.rightDrive.getTemperature());
 
         // Shuffleboard.getTab("Drivetrain").addNumber("Max Temp", () -> Math.max(Math.max(this.leftDriveMaster.getTemperature(), this.leftDrive.getTemperature()), Math.max(this.rightDriveMaster.getTemperature(), this.rightDrive.getTemperature())));
+        
+        field.setRobotPose(getPose());
+    }
+
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        super.initSendable(builder);
+        builder.addDoubleProperty("left power", () -> leftDriveMaster.getMotorOutputPercent(), null);
+        builder.addDoubleProperty("right power", () -> rightDriveMaster.getMotorOutputPercent(), null);
     }
 }

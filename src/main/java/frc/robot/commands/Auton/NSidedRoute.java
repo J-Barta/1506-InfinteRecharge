@@ -17,7 +17,7 @@ public class NSidedRoute extends SequentialCommandGroup {
         List<Command> commands = new ArrayList<>();
 
         for(int i = 0; i<n; i++) {
-            commands.add(new DriveDistance(dt, 0.5));
+            commands.add(dt.getRamseteCommand("Straight-Half-Meter", true));
             commands.add(new TurnToAngleProfiled(dt, turnAmount));
         }
 
