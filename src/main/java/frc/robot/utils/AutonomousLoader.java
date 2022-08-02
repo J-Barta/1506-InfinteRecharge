@@ -3,6 +3,7 @@ package frc.robot.utils;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.Auton.AllianceWallScoreHigh;
 import frc.robot.commands.Auton.DriveAndCollect;
 import frc.robot.commands.Auton.HangarAndBack;
 import frc.robot.commands.Auton.HangarToHangar;
@@ -27,6 +28,7 @@ public class AutonomousLoader {
         autoRoutes.put(Route.HangarToHangar, new HangarToHangar(subsystems.drivetrain));
         autoRoutes.put(Route.HangarAndBack, new HangarAndBack(subsystems.drivetrain));
         autoRoutes.put(Route.DriveAndCollect, new DriveAndCollect(subsystems.drivetrain, subsystems.intake));
+        autoRoutes.put(Route.AllianceWallScoreHigh, new AllianceWallScoreHigh(subsystems.drivetrain, subsystems.shooter, subsystems.vertIndexer, subsystems.horizIndexer));
 
         this.chooser = composeSendableChooser();
     }
@@ -56,6 +58,7 @@ public class AutonomousLoader {
         Octagon,
         HangarToHangar,
         HangarAndBack,
-        DriveAndCollect
+        DriveAndCollect,
+        AllianceWallScoreHigh
     }
 }
