@@ -36,7 +36,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
-import com.ctre.phoenix.motorcontrol.TalonFXSimCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -411,21 +410,21 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double getLeftDistanceMeters() {
-        return leftDriveMaster.getSelectedSensorPosition() / Constants.Drivetrain.LEFT_TICKS_PER_REV;
+        return leftDriveMaster.getSelectedSensorPosition() / Constants.Drivetrain.LEFT_TICKS_PER_METER;
     }
 
     public double getRightDistanceMeters() {
-        return rightDriveMaster.getSelectedSensorPosition() / Constants.Drivetrain.RIGHT_TICKS_PER_REV;
+        return rightDriveMaster.getSelectedSensorPosition() / Constants.Drivetrain.RIGHT_TICKS_PER_METER;
     }
 
     public double getLeftVelocityMetersPerSecond() {
         // return leftDriveMaster.getSelectedSensorVelocity() * (10.0 / Constants.Drivetrain.LEFT_TICKS_PER_REV);
-        return leftDriveMaster.getSelectedSensorVelocity() / Constants.Drivetrain.LEFT_TICKS_PER_REV;
+        return leftDriveMaster.getSelectedSensorVelocity() / Constants.Drivetrain.LEFT_TICKS_PER_METER;
     }
 
     public double getRightVelocityMetersPerSecond() {
         // return rightDriveMaster.getSelectedSensorVelocity() * (10.0 / Constants.Drivetrain.RIGHT_TICKS_PER_REV);
-        return rightDriveMaster.getSelectedSensorVelocity() / Constants.Drivetrain.RIGHT_TICKS_PER_REV;
+        return rightDriveMaster.getSelectedSensorVelocity() / Constants.Drivetrain.RIGHT_TICKS_PER_METER;
     }
 
     public double getAverageEncoderDistanceMeters() {
@@ -572,5 +571,6 @@ public class Drivetrain extends SubsystemBase {
         super.initSendable(builder);
         builder.addDoubleProperty("left power", () -> leftDriveMaster.getMotorOutputPercent(), null);
         builder.addDoubleProperty("right power", () -> rightDriveMaster.getMotorOutputPercent(), null);
+        builder.addDoubleProperty("gyro angle", () -> getHeading(), null);
     }
 }

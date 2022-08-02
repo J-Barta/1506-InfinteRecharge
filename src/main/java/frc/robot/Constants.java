@@ -44,8 +44,8 @@ Constants {
         public static final NamedID RIGHT_DRIVE_MASTER_ID = new NamedID("Right-Drive-Master-ID", 14);
         public static final NamedID RIGHT_DRIVE_ID = new NamedID("Right-Drive-ID", 15);
 
-        public static final Double LEFT_TICKS_PER_REV = 79675.000000 / Units.inchesToMeters(75); // 18600.0
-        public static final Double RIGHT_TICKS_PER_REV = 84660.000000 / Units.inchesToMeters(81); // 9326 19500.0
+        public static final Double LEFT_TICKS_PER_METER = 79675.000000 / Units.inchesToMeters(75); // 18600.0
+        public static final Double RIGHT_TICKS_PER_METER = 84660.000000 / Units.inchesToMeters(81); // 9326 19500.0
 
         public static final Double MAX_VELOCITY = 3.6; // 1 ft 0.3048 * 5
         public static final Double MAX_ACCELERATION = 0.777; // 0.1 * 5
@@ -77,8 +77,8 @@ Constants {
         public static final double TURN_TOLERANCE = 0.2; // 0.01
         public static final double TURN_RATE_TOLERANCE = 10.0;
 
-        public static final double MAX_TURN_RATE = 100.0;
-        public static final double MAX_TURN_ACCEL = 300.0;
+        public static final double MAX_TURN_RATE = 50.0;
+        public static final double MAX_TURN_ACCEL = 150.0;
 
         public static final double[] DIST_PID = {0.00009, 0.00003, 0.000001}; 
 
