@@ -4,6 +4,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.Auton.AllianceWallScoreHigh;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.Auton.DriveAndCollect;
 import frc.robot.commands.Auton.HangarAndBack;
 import frc.robot.commands.Auton.HangarToHangar;
@@ -11,6 +12,7 @@ import frc.robot.commands.Auton.NSidedRoute;
 import frc.robot.commands.Auton.Straight;
 import frc.robot.commands.Auton.StraightReturn;
 import frc.robot.commands.Auton.WallToLow;
+import frc.robot.commands.Auton.TwoBallAuto;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +33,7 @@ public class AutonomousLoader {
         autoRoutes.put(Route.DriveAndCollect, new DriveAndCollect(subsystems.drivetrain, subsystems.intake));
         autoRoutes.put(Route.WallToLow, new WallToLow(subsystems.drivetrain, subsystems.shooter, subsystems.vertIndexer, subsystems.horizIndexer));
         autoRoutes.put(Route.AllianceWallScoreHigh, new AllianceWallScoreHigh(subsystems.drivetrain, subsystems.shooter, subsystems.vertIndexer, subsystems.horizIndexer));
+        autoRoutes.put(Route.TwoBallRoute, new TwoBallAuto(subsystems.drivetrain, subsystems.intake, subsystems.horizIndexer, subsystems.vertIndexer, subsystems.shooter));
 
         this.chooser = composeSendableChooser();
     }
@@ -62,6 +65,7 @@ public class AutonomousLoader {
         HangarAndBack,
         DriveAndCollect,
         WallToLow,
-        AllianceWallScoreHigh
+        AllianceWallScoreHigh,
+        TwoBallRoute
     }
 }

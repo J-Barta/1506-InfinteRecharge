@@ -14,7 +14,7 @@ public class Shoot extends CommandBase {
         addRequirements(m_shooter);
     }
 
-    public Shoot(Shooter shooter, Double velocity) {
+    public Shoot(Shooter shooter, double velocity) {
         m_shooter = shooter;
         m_velocity = velocity;
         addRequirements(m_shooter);
@@ -23,6 +23,11 @@ public class Shoot extends CommandBase {
     @Override
     public void execute() {
         m_shooter.shootVelocity(m_velocity);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 
 }

@@ -19,6 +19,6 @@ public class DefaultSetToLowGear extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 }

@@ -25,4 +25,9 @@ public class IntakeOutake extends CommandBase {
         m_intake.intakeRev(m_power);
     }
 
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
+
 }

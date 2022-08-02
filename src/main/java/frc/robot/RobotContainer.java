@@ -127,8 +127,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
 
-    paths = loadPaths(List.of("Hangar-and-back", "Hangar-to-hangar", "Straight-1m", "Straight-Half-Meter", "Straight-3m", "AllianceWallScoreHigh", "WallToLow"));
-
+    paths = loadPaths(List.of("Hangar-and-back", "Hangar-to-hangar", "Straight-1m", "Straight-Half-Meter", "Straight-3m", "AllianceWallScoreHigh", "WallToLow", "Hub-to-ball-pickup", "Ball-pickup-to-hub"));
 
     autoLoader = new AutonomousLoader(
         new AllRobotSubsystems(drivetrain, horizIndexer, intake, shifter, shooter, vertIndexer), paths);
