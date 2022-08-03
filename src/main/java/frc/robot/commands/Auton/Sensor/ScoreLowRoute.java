@@ -1,4 +1,4 @@
-package frc.robot.commands.Auton;
+package frc.robot.commands.Auton.Sensor;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -9,12 +9,12 @@ import frc.robot.subsystems.HorizIndexer;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VertIndexer;
 
-public class ScoreHighRoute extends SequentialCommandGroup{
+public class ScoreLowRoute extends SequentialCommandGroup{
 
-    public ScoreHighRoute(Shooter shooter, VertIndexer vertIndexer, HorizIndexer horizIndexer) {
+    public ScoreLowRoute(Shooter shooter, VertIndexer vertIndexer, HorizIndexer horizIndexer) {
         addCommands(
-            new Shoot(shooter, 10000),
-            new WaitCommand(5),
+            new Shoot(shooter, 6000),
+            new WaitCommand(2),
             new VertIndex(vertIndexer),
             new HorizIndex(horizIndexer)
         );
