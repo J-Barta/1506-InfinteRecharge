@@ -90,7 +90,8 @@ public class RobotContainer {
     "wall-to-low", 
     "to-ball-2-ball", 
     "HangarScore",
-    "figure-eight"
+    "figure-eight",
+    "Maze"
     ));
     paths.putAll(loadPathsReversed(List.of("to-shoot-2-ball", "back-to-shoot")));
 

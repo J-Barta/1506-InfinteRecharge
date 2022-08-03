@@ -34,12 +34,13 @@ public class AutonomousLoader {
         autoRoutes.put(Route.SensorHangarScore, new HangarScore(s.drivetrain, s.shooter, s.vertIndexer, s.horizIndexer, s.intake));
         autoRoutes.put(Route.SensorScoreLow, new ScoreLowRoute(s.shooter, s.vertIndexer, s.horizIndexer));
         autoRoutes.put(Route.SensorScoreHigh, new ScoreHighRoute(s.shooter, s.vertIndexer, s.horizIndexer));
+        autoRoutes.put(Route.SensorFigureEight, new FigureEight(s.drivetrain));
+        autoRoutes.put(Route.SensorMaze, new Maze(s.drivetrain));
 
         //Timed routes
         autoRoutes.put(Route.TimedStraight, new StraightTimed(s.drivetrain));
         autoRoutes.put(Route.TimedReturn, new StraightAndReturnTimed(s.drivetrain));
         autoRoutes.put(Route.TimedHangarToHangar, new HangarToHangarTimed(s.drivetrain, s.shooter, s.vertIndexer, s.horizIndexer, s.intake));
-        autoRoutes.put(Route.SensorFigureEight, new FigureEight(s.drivetrain));
 
         this.chooser = composeSendableChooser();
     }
@@ -79,7 +80,8 @@ public class AutonomousLoader {
         TimedStraight,
         TimedReturn,
         TimedHangarToHangar,
-        SensorFigureEight
+        SensorFigureEight,
+        SensorMaze
 
     }
 }
