@@ -397,6 +397,10 @@ public class Drivetrain extends SubsystemBase {
         return Math.IEEEremainder(-navx.getAngle(), 360);
     }
 
+    public Double getRawHeading() {
+        return -navx.getAngle();
+    }
+
     public Double getCumulativeHeading() {
         return getHeading() + cumulativeHeading;
     }

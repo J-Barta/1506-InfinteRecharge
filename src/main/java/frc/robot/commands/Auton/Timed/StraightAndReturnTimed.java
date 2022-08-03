@@ -5,13 +5,13 @@ import frc.robot.commands.Timed.DriveTimed;
 import frc.robot.commands.Timed.TurnTimed;
 import frc.robot.subsystems.Drivetrain;
 
-public class StraightAndReturn extends SequentialCommandGroup {
+public class StraightAndReturnTimed extends SequentialCommandGroup {
 
-    public StraightAndReturn(Drivetrain dt) {
+    public StraightAndReturnTimed(Drivetrain dt) {
         addCommands(
-                new DriveTimed(dt, 0.25, 5),
-                new TurnTimed(dt, 0.25, 5),
-                new DriveTimed(dt, 0.25, 5)
+                new DriveTimed(dt, 0.5, 5),
+                new TurnTimed(dt, 0.5, 4.25),
+                new DriveTimed(dt, 0.5, 5)
         );
     }
 }

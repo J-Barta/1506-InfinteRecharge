@@ -57,7 +57,7 @@ public class Shooter extends SubsystemBase {
         dashboard();
     }
 
-    private void setPower(Double pwr) {
+    public void setPower(Double pwr) {
         this.shooter1.set(ControlMode.PercentOutput, pwr);
         this.shooter2.set(ControlMode.PercentOutput, pwr);
     }
@@ -87,7 +87,7 @@ public class Shooter extends SubsystemBase {
         this.setPower(0.0);
     }
 
-    private Double getWheelVelocity() {
+    public double getWheelVelocity() {
         return this.velocity;
     }
 

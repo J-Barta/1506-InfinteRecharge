@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
 public class TurnTimed extends CommandBase {
-    private double accelTimeSeconds = 1;
+    private double accelTimeSeconds = 0.25;
     private Timer timer;
     private Drivetrain dt;
     private double pwr;
@@ -21,6 +21,8 @@ public class TurnTimed extends CommandBase {
         this.totalSeconds = seconds;
 
         this.accelerationTime = calculateAccelerationTime();
+
+        addRequirements(dt);
     }
 
     @Override
@@ -44,7 +46,6 @@ public class TurnTimed extends CommandBase {
         }
 
         dt.arcadeDrive(0, currentPwr);
-        System.out.println("power: " + currentPwr);
     }
 
     @Override

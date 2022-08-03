@@ -3,18 +3,10 @@ package frc.robot.utils;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.Auton.Sensor.AllianceWallScoreHigh;
-import frc.robot.commands.Auton.Sensor.DriveAndCollect;
-import frc.robot.commands.Auton.Sensor.HangarAndBack;
-import frc.robot.commands.Auton.Sensor.HangarScore;
-import frc.robot.commands.Auton.Sensor.HangarToHangar;
-import frc.robot.commands.Auton.Old.NSidedRoute;
+import frc.robot.commands.Auton.Sensor.*;
 import frc.robot.commands.Auton.Old.ScoreHighRoute;
-import frc.robot.commands.Auton.Sensor.ScoreLowRoute;
-import frc.robot.commands.Auton.Sensor.Straight;
-import frc.robot.commands.Auton.Sensor.StraightReturn;
-import frc.robot.commands.Auton.Sensor.WallToLow;
-import frc.robot.commands.Auton.Sensor.TwoBallAuto;
+import frc.robot.commands.Auton.Timed.HangarToHangarTimed;
+import frc.robot.commands.Auton.Timed.StraightAndReturnTimed;
 import frc.robot.commands.Auton.Timed.StraightTimed;
 
 import java.util.HashMap;
@@ -45,6 +37,9 @@ public class AutonomousLoader {
 
         //Timed routes
         autoRoutes.put(Route.TimedStraight, new StraightTimed(s.drivetrain));
+        autoRoutes.put(Route.TimedReturn, new StraightAndReturnTimed(s.drivetrain));
+        autoRoutes.put(Route.TimedHangarToHangar, new HangarToHangarTimed(s.drivetrain, s.shooter, s.vertIndexer, s.horizIndexer, s.intake));
+        autoRoutes.put(Route.SensorFigureEight, new FigureEight(s.drivetrain));
 
         this.chooser = composeSendableChooser();
     }
@@ -81,7 +76,10 @@ public class AutonomousLoader {
         SensorHangarScore,
         SensorScoreLow,
         SensorScoreHigh,
-        TimedStraight
+        TimedStraight,
+        TimedReturn,
+        TimedHangarToHangar,
+        SensorFigureEight
 
     }
 }

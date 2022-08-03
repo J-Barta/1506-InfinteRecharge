@@ -13,7 +13,7 @@ public class TurnToAngleStupid extends CommandBase {
   private double targetAngle;
   private double startAngle;
 
-  private double allowedError = 2;
+  private double allowedError = 0.5;
 
   public TurnToAngleStupid(Drivetrain dt, double angle) {
     this.dt = dt;
@@ -22,9 +22,9 @@ public class TurnToAngleStupid extends CommandBase {
 
   @Override
   public void initialize() {
-    this.startAngle = dt.getHeading();
-    this.targetAngle = (startAngle + turnAmount) % 360;
-    dt.arcadeDrive(0, 0.25);
+    this.startAngle = dt.getRawHeading();
+    this.targetAngle = (turnAmount);
+    dt.arcadeDrive(0, -0.5);
   }
 
   @Override
@@ -37,6 +37,8 @@ public class TurnToAngleStupid extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return Math.abs(dt.getHeading() - targetAngle) < allowedError || dt.getHeading() - startAngle < -2;
+    boolean val = Math.abs(dt.getRawHeading() - targetAngle) < allowedError;
+    System.out.println(val);
+    return val;
   }
 }
